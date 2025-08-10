@@ -1,0 +1,26 @@
+#include <stdio.h>
+#include <ctype.h>
+#include <string.h>
+
+const char* pangrams(char *s) {
+    int alphabet[26] = {0};  
+    int unique_letters = 0;
+
+    for (int i = 0; s[i] != '\0'; i++) {
+        if (isalpha(s[i])) {
+            int index = tolower(s[i]) - 'a';
+            if (alphabet[index] == 0) {
+                alphabet[index] = 1;
+                unique_letters++;
+            }
+        }
+    }
+    return (unique_letters == 26) ? "pangram" : "not pangram";
+}
+int main() {
+    char s[1001];
+    fgets(s, sizeof(s), stdin);
+    s[strcspn(s, "\n")] = 0;
+    printf("%s\n", pangrams(s));
+    return 0;
+}

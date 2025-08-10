@@ -1,35 +1,26 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int diagonalDifference(int **arr, int n) {
-    int primaryDiagonalSum = 0;
-    int secondaryDiagonalSum = 0;
-
+int diagonalDifference(int n, int arr[n][n]) {
+    int primary_diagonal = 0;
+    int secondary_diagonal = 0;
     for (int i = 0; i < n; i++) {
-        primaryDiagonalSum += arr[i][i];
-        secondaryDiagonalSum += arr[i][n - i - 1];
+        primary_diagonal += arr[i][i];
+        secondary_diagonal += arr[i][n - 1 - i];
     }
 
-    return abs(primaryDiagonalSum - secondaryDiagonalSum);
+    return abs(primary_diagonal - secondary_diagonal);
 }
-
 int main() {
     int n;
     scanf("%d", &n);
-    int **arr = malloc(n * sizeof(int *));
-    for (int i = 0; i < n; i++) {
-        arr[i] = malloc(n * sizeof(int));
-    }
+    int arr[n][n];
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
             scanf("%d", &arr[i][j]);
         }
     }
-    int result = diagonalDifference(arr, n);
+
+    int result = diagonalDifference(n, arr);
     printf("%d\n", result);
-    for (int i = 0; i < n; i++) {
-        free(arr[i]);
-    }
-    free(arr);
     return 0;
-}
